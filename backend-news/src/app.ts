@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -17,11 +18,22 @@ app.use((req, res, next) => {
   next();
 });
 
-const port = 8080;
+// const port = 8080;
 // Configuração da conexão com o MongoDB
 //const dbURI = 'mongodb://127.0.0.1:27017/api-news';
-const dbURI = 'mongodb+srv://ldk-app-news:ldkern30@newscluster.wftwx8j.mongodb.net/';
-mongoose.connect(dbURI);
+// const dbURI = 'mongodb+srv://ldk-app-news:ldkern30@newscluster.wftwx8j.mongodb.net/';
+// mongoose.connect(dbURI);
+
+const port = process.env.PORT || 8080;
+const dbURI = process.env.MONGODB_URI;
+
+if (!dbURI) {
+  throw new Error('A variável de ambiente MONGODB_URI não está definida');
+}
+
+mongoose.connect(dbURI, {  
+  dbName: 'news' 
+});
 
 const db = mongoose.connection;
 

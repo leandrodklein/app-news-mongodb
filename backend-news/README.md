@@ -37,6 +37,8 @@
   "exclude": ["node_modules"]
 }
 
+- npm install dotenv
+
 ### Executar o projeto
 - npm start
 
